@@ -1,5 +1,8 @@
-from flask import render_template
+from flask import Flask,  render_template
+from flask.ext.bootstrap import Bootstrap
 from app import app
+
+bootstrap = Bootstrap(app)
 
 @app.route('/')
 @app.route('/index')
