@@ -7,6 +7,9 @@
 {% block page_content %}
     <div class="page-header">
         <h1>Welcome to {{ title }}!</h1>
+        <h2>Total Bill: ${% if totalBill %}{{ totalBill }}{% else %} 0.00 {% endif %}</h2>
+        <h2>Total People: {% if totalPeople %}{{ totalPeople }}{% else %} 0 {% endif %}</h2>
+        <h2>Per Person: ${% if perPerson %}{{ perPerson }}{% else %} 0 {% endif %}</h2>
     </div>
 
 {{ wtf.quick_form(form) }}
