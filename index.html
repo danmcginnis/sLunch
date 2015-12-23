@@ -15,11 +15,11 @@
 				var price_per_person_w_beer = form.elements["price_per_person_w_beer"];
 				
 
-				var total_bill = parseFloat(form.elements["total_bill"].value);
-				var tip = parseFloat(form.elements["tip"].value);
-				var people = parseInt(form.elements["people"].value);
-				var beer_people = parseInt(form.elements["beer_people"].value);
-				var price_per_beer = parseFloat(form.elements["price_per_beer"].value);
+				var total_bill = Math.abs(parseFloat(form.elements["total_bill"].value));
+				var tip = Math.abs(parseFloat(form.elements["tip"].value));
+				var people = Math.abs(parseInt(form.elements["people"].value));
+				var beer_people = Math.abs(parseInt(form.elements["beer_people"].value));
+				var price_per_beer = Math.abs(parseFloat(form.elements["price_per_beer"].value));
 				
 				var total_beer_price;
 				var total_adjusted_beer_price;
@@ -62,11 +62,11 @@
 	
 	<body>
 		<form id="calc" oninput="updateOutput()">
-			Total Bill:  <input name="total_bill" type="number" value="0" /><br>
+			Total Bill:  <input name="total_bill" type="number" value="0" min="1"/><br>
 			Tip Percentage: <input name="tip" type="number" value=".20" /><br>
-			Total People: <input name="people" type="number" value="2" /><br>
-			Total Beer People: <input name="beer_people" type="number" value="2" /><br>
-			Price per Beer: <input name="price_per_beer" type="number" value="6" /><br>
+			Total People: <input name="people" type="number" value="2" min="2" /><br>
+			Total Beer People: <input name="beer_people" type="number" value="2" min="0"/><br>
+			Price per Beer: <input name="price_per_beer" type="number" value="6" min="1"/><br>
 			<br>
 			<br>
 			Total Price: <output name="total_price">0</output><br>
