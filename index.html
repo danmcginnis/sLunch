@@ -39,7 +39,9 @@
 				total_beer_price = beer_people * price_per_beer;
 				total_beer_price_form.value = total_beer_price;
 				
-				total_adjusted_beer_price = beer_people * (price_per_beer - 2);
+				price_per_beer -= 2;
+				
+				total_adjusted_beer_price = beer_people * (price_per_beer);
 				total_adjusted_beer_price_form.value = total_adjusted_beer_price; 
 				
 				total_wo_beer = total_bill - total_adjusted_beer_price;
