@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+		<script type="text/javascript">
+			function updateOutput() {
+				var form = document.getElementById("calc");
+				var total_price = form.elements["total_price"];
+				var price_per_person = form.elements["price_per_person"];
+				var total_beer_price_form = form.elements["total_beer_price"];
+				var total_adjusted_beer_price_form = form.elements["total_adjusted_beer_price"];
+				var total_wo_beer_form = form.elements["total_wo_beer"];
+				var price_per_person_wo_beer_form = form.elements["price_per_person_wo_beer"];
+				var price_per_person_w_beer = form.elements["price_per_person_w_beer"];
+				
+
+				var total_bill = parseFloat(form.elements["total_bill"].value);
+				var tip = parseFloat(form.elements["tip"].value);
+				var people = parseInt(form.elements["people"].value);
+				var beer = parseInt(form.elements["beer_people"].value);
+				var price_per_beer = parseFloat(form.elements["price_per_beer"].value);
+				
+				var total_beer_price;
+				var total_adjusted_beer_price;
+				var total_wo_beer;
+				var price_per_person_wo_beer;
+				
+				total_bill = total_bill + (total_bill * tip);
+				total_price.value = total_bill;
+				
+				price_per_person.value = (total_bill / people).toFixed(2);
+				
+				total_beer_price = beer * price_per_beer;
+				total_beer_price_form.value = total_beer_price;
+				
+				total_adjusted_beer_price = beer * (price_per_beer - 2);
+				total_adjusted_beer_price_form.value = total_adjusted_beer_price; 
+				
+				total_wo_beer = total_bill - total_adjusted_beer_price;
+				total_wo_beer_form.value = total_wo_beer;
+				
+				price_per_person_wo_beer = total_wo_beer / people;
+				price_per_person_wo_beer_form.value = price_per_person_wo_beer.toFixed(2);
+				
+				price_per_person_w_beer.value = (price_per_person_wo_beer + price_per_beer).toFixed(2);
+			}
+		</script>
+	</head>
+	
+	<body>
+		<form id="calc" oninput="updateOutput()">
+			Total Bill:  <input name="total_bill" type="number" value="0" /><br>
+			Tip Percentage: <input name="tip" type="number" value=".20" /><br>
+			Total People: <input name="people" type="number" value="2" /><br>
+			Total Beer People: <input name="beer_people" type="number" value="2" /><br>
+			Price per Beer: <input name="price_per_beer" type="number" value="6" /><br>
+			<br>
+			<br>
+			Total Price: <output name="total_price">0</output><br>
+			Total Price Per Person without beer: <output name="price_per_person_wo_beer">0</output><br>
+			Total Price Per Person with beer: <output name="price_per_person_w_beer">0</output><br>
+			
+			<br><br>
+			Debug output:<br>
+			Total Price Per Person: <output name="price_per_person">0</output><br>
+			Total Beer Price: <output name="total_beer_price">0</output><br>
+			Total Adjusted Beer Price: <output name="total_adjusted_beer_price">0</output><br>
+			Total Without Beer: <output name="total_wo_beer">0</output><br>
+			</form>
+	</body>
+	</html>
+		
