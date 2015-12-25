@@ -11,7 +11,7 @@
 		<form id="calc" oninput="updateOutput()">
 			<div id="input">
 				Total Bill:  <input name="total_bill" type="number" value="0" min="1"/><br>
-				Tip Percentage: <input name="tip" type="number" value=".20" /><br>
+				Tip Percentage: <input name="tip" type="number" min="0" max="100" value="20" /><br>
 				Total People: <input name="people" type="number" value="2" min="2" /><br>
 				Total Beer People: <input name="beer_people" type="number" value="2" min="0"/><br>
 				Price per Beer: <input name="price_per_beer" type="number" value="6" min="1"/><br>
@@ -44,40 +44,45 @@
 				var total_wo_beer_form = form.elements["total_wo_beer"];
 				var price_per_person_wo_beer_form = form.elements["price_per_person_wo_beer"];
 				var price_per_person_w_beer = form.elements["price_per_person_w_beer"];
-				
+
 
 				var total_bill = Math.abs(parseFloat(form.elements["total_bill"].value));
-				var tip = Math.abs(parseFloat(form.elements["tip"].value));
+				var tip = (Math.abs(parseFloat(form.elements["tip"].value)) / 100) ;
 				var people = Math.abs(parseInt(form.elements["people"].value));
 				var beer_people = Math.abs(parseInt(form.elements["beer_people"].value));
 				var price_per_beer = Math.abs(parseFloat(form.elements["price_per_beer"].value));
-				
+
 				var total_beer_price;
 				var total_adjusted_beer_price;
 				var total_wo_beer;
 				var price_per_person_wo_beer;
-				
+
 				if (beer_people > people) {
 					beer_people = people;
 					form.elements["beer_people"].value = beer_people;
 				}
-				
-				total_bill = total_bill + (total_bill * tip);
+
+				total_bill = total_bill * (1 + tip);
 				total_price.value = total_bill;
-				
+
 				price_per_person.value = (total_bill / people).toFixed(2);
-				
+
 				total_beer_price = beer_people * price_per_beer;
 				total_beer_price_form.value = total_beer_price;
-				
+
 				price_per_beer -= 2;
-				
+
+				// That's a cheap beer.
+				if(price_per_beer < 0){
+					price_per_beer = 0;
+				}
+
 				total_adjusted_beer_price = beer_people * (price_per_beer);
-				total_adjusted_beer_price_form.value = total_adjusted_beer_price; 
-				
+				total_adjusted_beer_price_form.value = total_adjusted_beer_price;
+
 				total_wo_beer = total_bill - total_adjusted_beer_price;
 				total_wo_beer_form.value = total_wo_beer;
-				
+
 				if (beer_people == people) {
 					price_per_person_wo_beer = total_bill / people;
 					price_per_person_wo_beer_form.value = price_per_person_wo_beer;
@@ -88,10 +93,8 @@
 					price_per_person_wo_beer_form.value = price_per_person_wo_beer.toFixed(2);
 					price_per_person_w_beer.value = (price_per_person_wo_beer + price_per_beer).toFixed(2);
 				}
-				
+
 			}
 		</script>
 	</body>
 	</html>
-	
-		
